@@ -2,7 +2,11 @@
 
 Since I couldn't find translations anywhere, here's a community project. I've added the English templates files as a base.
 
+Make sure you translate both the `html.twig` and the `plain.twig`!
+
 ## Done
+- contact_form
+- order_confirmation_mail
 
 ## TODO
 - order_transaction.state.paid_partially
@@ -23,14 +27,12 @@ Since I couldn't find translations anywhere, here's a community project. I've ad
 - newsletterDoubleOptIn
 - customer_register
 - order_delivery.state.cancelled
-- order_confirmation_mail
 - order_transaction.state.reminded
 - customer.group.registration.accepted
 - order_transaction.state.refunded_partially
 - user.recovery.request
 - order_delivery.state.returned_partially
 - customer.recovery.request
-- contact_form
 - customer.group.registration.declined
 - order.state.open
 - order_delivery.state.returned
