@@ -5,35 +5,35 @@ Since I couldn't find translations anywhere, here's a community project. I've ad
 Make sure you translate both the `html.twig` and the `plain.twig`!
 
 ## Done
-- contact_form
-- order_confirmation_mail
+- contact_form (thx @ohohohKevin)
+- order_confirmation_mail (thx @PeterJaap)
+- customer.group.registration.accepted (thx @MelvinAchterhuis)
+- customer.group.registration.declined (thx @MelvinAchterhuis)
+- customer_group_change_accept (thx @MelvinAchterhuis)
+- customer_group_change_reject (thx @MelvinAchterhuis)
+- customer_register.double_opt_in (thx @MelvinAchterhuis)
+- customer_register (thx @MelvinAchterhuis)
+- guest_order.double_opt_in (thx @MelvinAchterhuis)
+- newsletterDoubleOptIn (thx @MelvinAchterhuis)
+- newsletterRegister (thx @MelvinAchterhuis)
+- order.state.cancelled (thx @MelvinAchterhuis)
 
 ## TODO
 - order_transaction.state.paid_partially
-- customer_register.double_opt_in
 - order_transaction.state.open
 - order.state.in_progress
 - order_delivery.state.shipped
-- guest_order.double_opt_in
 - order_delivery.state.shipped_partially
-- order.state.cancelled
 - order_transaction.state.paid
-- customer_group_change_reject
 - order_transaction.state.cancelled
-- customer_group_change_accept
-- newsletterRegister
 - password_change
 - order_transaction.state.refunded
-- newsletterDoubleOptIn
-- customer_register
 - order_delivery.state.cancelled
 - order_transaction.state.reminded
-- customer.group.registration.accepted
 - order_transaction.state.refunded_partially
 - user.recovery.request
 - order_delivery.state.returned_partially
 - customer.recovery.request
-- customer.group.registration.declined
 - order.state.open
 - order_delivery.state.returned
 - order.state.completed
