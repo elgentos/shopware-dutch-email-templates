@@ -6,7 +6,7 @@
         De status van je bestelling bij {{ salesChannel.name }} (Nummer: {{order.orderNumber}}) op {{ order.orderDateTime|date }} is gewijzigd.<br/>
         <strong>De nieuwe status is als volgt: {{order.stateMachineState.name}}.</strong><br/>
         <br/>
-        Je kunt de huidige status van je bestelling bekijken op onze website onder "Mijn account" - "Mijn bestelling" te allen tijde: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
+        Je kunt de huidige status van je bestelling bekijken op onze website onder "Mijn account" - "Mijn bestelling": {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
         </br>
         Als je echter een aankoop hebt gedaan zonder registratie of een klantenaccount, heb je deze mogelijkheid niet.</p>
 </div>
