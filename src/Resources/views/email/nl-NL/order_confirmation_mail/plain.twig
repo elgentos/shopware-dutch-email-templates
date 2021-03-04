@@ -9,7 +9,7 @@ Opmerking: {{ order.customerComment }}
 
 Zodra de betaling is verwerkt ontvang je een aparte melding en wordt je bestelling in behandeling genomen.
 
-Met deze link kunt u de huidige status van je bestelling bekijken: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
+Met deze link kan je de huidige status van je bestelling bekijken: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
 Je kunt deze link gebruiken om je bestelling te wijzigen, de betaalmethode te wijzigen of aanvullende betalingen te doen.
 
 Informatie over je bestelling:
@@ -52,4 +52,4 @@ Verzendadres:
 {% endif %}
 
 Je kunt op elk moment de huidige status van je bestelling bekijken op onze website onder "Mijn account" - "Mijn bestellingen": {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
-Mocht u nog vragen hebben, neem dan gerust contact met ons op.
+Mocht je nog vragen hebben, neem dan gerust contact met ons op.
