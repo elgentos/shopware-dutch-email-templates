@@ -20,20 +20,20 @@ Make sure you translate both the `html.twig` and the `plain.twig`!
 - customer.recovery.request (thx @PeterJaap)
 - user.recovery.request (thx @PeterJaap)
 - order.state.in_progress (thx @PeterJaap)
+- order_delivery.state.shipped (thx @PeterJaap)
+- order_delivery.state.shipped_partially (thx @PeterJaap)
+- order_delivery.state.cancelled (thx @PeterJaap)
+- order_delivery.state.returned_partially (thx @PeterJaap)
+- order_delivery.state.returned (thx @PeterJaap)
+- password_change (thx @PeterJaap)
 
 ## TODO
 - order_transaction.state.paid_partially
 - order_transaction.state.open
-- order_delivery.state.shipped
-- order_delivery.state.shipped_partially
 - order_transaction.state.paid
 - order_transaction.state.cancelled
-- password_change
 - order_transaction.state.refunded
-- order_delivery.state.cancelled
 - order_transaction.state.reminded
 - order_transaction.state.refunded_partially
-- order_delivery.state.returned_partially
 - order.state.open
-- order_delivery.state.returned
 - order.state.completed
