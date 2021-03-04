@@ -3,11 +3,11 @@
     {% set currencyIsoCode = order.currency.isoCode %}
     Hallo {{order.orderCustomer.salutation.letterName }} {{order.orderCustomer.firstName}} {{order.orderCustomer.lastName}},<br>
     <br>
-    We have received your order on {{ order.orderDateTime|date }}.<br>
+    We hebben je bestelling ontvangen op {{ order.orderDateTime|date }}.<br>
     <br>
-    Order number: {{ order.orderNumber }}.<br>
+    Ordernummer: {{ order.orderNumber }}.<br>
     <br>
-    You have not completed your payment with {{ order.transactions.first.paymentMethod.name }} yet. You can resume the payment process by using the following URL: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}<br>
+    Je hebt je betaling met {{ order.transactions.first.paymentMethod.name }} nog niet voltooid. Je kunt het betalingsproces hervatten door de volgende URL te gebruiken: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}<br>
     <br>
     <strong>Informatie over je bestelling:</strong><br>
     <br>

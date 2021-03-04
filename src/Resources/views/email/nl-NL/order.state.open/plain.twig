@@ -1,7 +1,7 @@
 Hallo {{order.orderCustomer.salutation.letterName }} {{order.orderCustomer.firstName}} {{order.orderCustomer.lastName}},
 
-the status of your order at {{ salesChannel.name }} (Number: {{order.orderNumber}}) on {{ order.orderDateTime|date }}  has changed.
-The new status is as follows: {{order.stateMachineState.name}}.
+De status van je bestelling bij {{salesChannel.name}} ({{order.orderNumber}}) on {{ order.orderDateTime|date }} is veranderd.
+De nieuwe status is als volgt: {{order.stateMachineState.name}}.
 
-You can check the current status of your order on our website under "My account" - "My orders" anytime: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
-However, in case you have purchased without a registration or a customer account, you do not have this option.
+Je kunt de actuele status van je bestelling op elk moment bekijken op onze website onder "Mijn account" - "Mijn bestellingen": {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
+Als je echter gekocht hebt zonder registratie of een klantenaccount, heb je deze optie niet.
