@@ -17,11 +17,13 @@ Make sure you translate both the `html.twig` and the `plain.twig`!
 - newsletterDoubleOptIn (thx @MelvinAchterhuis)
 - newsletterRegister (thx @MelvinAchterhuis)
 - order.state.cancelled (thx @MelvinAchterhuis)
+- customer.recovery.request (thx @PeterJaap)
+- user.recovery.request (thx @PeterJaap)
+- order.state.in_progress (thx @PeterJaap)
 
 ## TODO
 - order_transaction.state.paid_partially
 - order_transaction.state.open
-- order.state.in_progress
 - order_delivery.state.shipped
 - order_delivery.state.shipped_partially
 - order_transaction.state.paid
@@ -31,9 +33,7 @@ Make sure you translate both the `html.twig` and the `plain.twig`!
 - order_delivery.state.cancelled
 - order_transaction.state.reminded
 - order_transaction.state.refunded_partially
-- user.recovery.request
 - order_delivery.state.returned_partially
-- customer.recovery.request
 - order.state.open
 - order_delivery.state.returned
 - order.state.completed
