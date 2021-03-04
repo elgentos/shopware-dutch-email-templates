@@ -15,7 +15,7 @@
         }
     },
     "suggests": {
-        "frosh/templatemail": "Store mail templates in theme"
+        "frosh/frosh-platform-template-mail": "Store mail templates in theme"
     },
     "extra": {
         "shopware-plugin-class": "ElgentosDutchEmailTemplates\\ElgentosDutchEmailTemplates",
