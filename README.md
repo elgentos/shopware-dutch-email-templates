@@ -26,14 +26,14 @@ Make sure you translate both the `html.twig` and the `plain.twig`!
 - order_delivery.state.returned_partially (thx @PeterJaap)
 - order_delivery.state.returned (thx @PeterJaap)
 - password_change (thx @PeterJaap)
+- order_transaction.state.paid_partially (thx @PeterJaap)
+- order_transaction.state.open (thx @PeterJaap)
+- order_transaction.state.refunded (thx @PeterJaap)
+- order_transaction.state.reminded (thx @PeterJaap)
+- order_transaction.state.refunded_partially (thx @PeterJaap)
 
 ## TODO
-- order_transaction.state.paid_partially
-- order_transaction.state.open
 - order_transaction.state.paid
 - order_transaction.state.cancelled
-- order_transaction.state.refunded
-- order_transaction.state.reminded
-- order_transaction.state.refunded_partially
 - order.state.open
 - order.state.completed

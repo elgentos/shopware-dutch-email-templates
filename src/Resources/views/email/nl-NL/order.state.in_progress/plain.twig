@@ -1,6 +1,6 @@
 {{order.orderCustomer.salutation.letterName }} {{order.orderCustomer.firstName}} {{order.orderCustomer.lastName}},
 
-De status van je bestelling bij {{salesChannel.name }} (Nummer: {{order.orderNummer}}) op {{order.orderDatum|date }} is veranderd.
+De status van je bestelling bij {{salesChannel.name }} (Nummer: {{order.orderNumber}}) op {{order.orderDatum|date }} is veranderd.
 De nieuwe status is als volgt: {{order.statusMachineStatus.naam}}.
 
 Je kunt de actuele status van je bestelling op elk moment bekijken op onze website onder "Mijn account" - "Mijn bestellingen": {{ rawUrl('frontend.account.order.single.page', {'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
