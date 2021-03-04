@@ -1,5 +1,7 @@
 # Shopware 6 Dutch transactional email templates
 
+Tip: use this with [frosh/templatemail](https://github.com/FriendsOfShopware/FroshTemplateMail)
+
 Since I couldn't find translations anywhere, here's a community project. I've added the English templates files as a base.
 
 Make sure you translate both the `html.twig` and the `plain.twig`!
