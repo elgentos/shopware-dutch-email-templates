@@ -1,7 +1,7 @@
 <div style="font-family:arial; font-size:12px;">
     <br/>
     <p>
-        {{order.orderCustomer.salutation.letterName }} {{order.orderCustomer.firstName}} {{order.orderCustomer.lastName}},<br/>
+        Hallo {{order.orderCustomer.salutation.letterName }} {{order.orderCustomer.firstName}} {{order.orderCustomer.lastName}},<br/>
         <br/>
         the status of your order at {{ salesChannel.name }} (Number: {{order.orderNumber}}) on {{ order.orderDateTime|date }} has changed.<br/>
         <strong>The new status is as follows: {{order.stateMachineState.name}}.</strong><br/>
