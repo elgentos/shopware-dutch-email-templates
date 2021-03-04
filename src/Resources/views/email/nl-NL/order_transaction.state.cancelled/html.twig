@@ -9,16 +9,16 @@
     <br>
     You have not completed your payment with {{ order.transactions.first.paymentMethod.name }} yet. You can resume the payment process by using the following URL: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}<br>
     <br>
-    <strong>Information on your order:</strong><br>
+    <strong>Informatie over je bestelling:</strong><br>
     <br>
 
     <table width="80%" border="0" style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">
         <tr>
-            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Pos.</strong></td>
-            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Description</strong></td>
-            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Quantities</strong></td>
-            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Price</strong></td>
-            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Total</strong></td>
+            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>#</strong></td>
+            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Beschrijving</strong></td>
+            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Aantal</strong></td>
+            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Prijs</strong></td>
+            <td bgcolor="#F7F7F2" style="border-bottom:1px solid #cccccc;"><strong>Totaal</strong></td>
         </tr>
 
         {% for lineItem in order.lineItems %}
@@ -35,7 +35,7 @@
                         {% endfor %}
                         <br/>
                     {% endif %}
-                    {% if lineItem.payload.productNumber is defined %}Prod. No.: {{ lineItem.payload.productNumber|u.wordwrap(80) }}{% endif %}
+                    {% if lineItem.payload.productNumber is defined %}Artikelnummer: {{ lineItem.payload.productNumber|u.wordwrap(80) }}{% endif %}
                 </td>
                 <td style="border-bottom:1px solid #cccccc;">{{ lineItem.quantity }}</td>
                 <td style="border-bottom:1px solid #cccccc;">{{ lineItem.unitPrice|currency(currencyIsoCode) }}</td>
@@ -48,26 +48,26 @@
     <p>
         <br>
         <br>
-        Shipping costs: {{order.deliveries.first.shippingCosts.totalPrice|currency(currencyIsoCode) }}<br>
+        Verzendkosten: {{order.deliveries.first.shippingCosts.totalPrice|currency(currencyIsoCode) }}<br>
 
-        Net total: {{ order.amountNet|currency(currencyIsoCode) }}<br>
+        Subtotaal: {{ order.amountNet|currency(currencyIsoCode) }}<br>
         {% for calculatedTax in order.price.calculatedTaxes %}
-            {% if order.taxStatus is same as('net') %}plus{% else %}including{% endif %} {{ calculatedTax.taxRate }}% VAT. {{ calculatedTax.tax|currency(currencyIsoCode) }}<br>
+            {% if order.taxStatus is same as('net') %}plus{% else %}inclusief{% endif %} {{ calculatedTax.taxRate }}% BTW. {{ calculatedTax.tax|currency(currencyIsoCode) }}<br>
         {% endfor %}
-        <strong>Total gross: {{ order.amountTotal|currency(currencyIsoCode) }}</strong><br>
+        <strong>Totaal: {{ order.amountTotal|currency(currencyIsoCode) }}</strong><br>
 
         <br>
 
-        <strong>Selected payment type:</strong> {{ order.transactions.first.paymentMethod.name }}<br>
+        <strong>Gekozen betaalmethode:</strong> {{ order.transactions.first.paymentMethod.name }}<br>
         {{ order.transactions.first.paymentMethod.description }}<br>
         <br>
 
-        <strong>Selected shipping type:</strong> {{ delivery.shippingMethod.name }}<br>
+        <strong>Gekozen verzendmethode:</strong> {{ delivery.shippingMethod.name }}<br>
         {{ delivery.shippingMethod.description }}<br>
         <br>
 
         {% set billingAddress = order.addresses.get(order.billingAddressId) %}
-        <strong>Billing address:</strong><br>
+        <strong>Factuuradres:</strong><br>
         {{ billingAddress.company }}<br>
         {{ billingAddress.firstName }} {{ billingAddress.lastName }}<br>
         {{ billingAddress.street }} <br>
@@ -75,7 +75,7 @@
         {{ billingAddress.country.name }}<br>
         <br>
 
-        <strong>Shipping address:</strong><br>
+        <strong>Verzendadres:</strong><br>
         {{ delivery.shippingOrderAddress.company }}<br>
         {{ delivery.shippingOrderAddress.firstName }} {{ delivery.shippingOrderAddress.lastName }}<br>
         {{ delivery.shippingOrderAddress.street }} <br>
@@ -83,13 +83,13 @@
         {{ delivery.shippingOrderAddress.country.name }}<br>
         <br>
         {% if billingAddress.vatId %}
-            Your VAT-ID: {{ billingAddress.vatId }}
-            In case of a successful order and if you are based in one of the EU countries, you will receive your goods exempt from turnover tax.<br>
+            Je BTW-nummer: {{ billingAddress.vatId }}
+            In het geval van een succesvolle bestelling en als je gevestigd bent in een van de EU-landen (uitgezonderd Nederland), ontvangt je je goederen vrijgesteld van omzetbelasting.<br>
         {% endif %}
         <br/>
-        You can check the current status of your order on our website under "My account" - "My orders" anytime: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
+        Je kunt op elk moment de huidige status van je bestelling bekijken op onze website onder "Mijn account" - "Mijn bestellingen": {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
         </br>
-        If you have any questions, do not hesitate to contact us.
+        Mocht u nog vragen hebben, neem dan gerust contact met ons op.
 
     </p>
     <br>

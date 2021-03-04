@@ -1,43 +1,38 @@
 {% set currencyIsoCode = order.currency.isoCode %}
 Hallo {{order.orderCustomer.salutation.letterName }} {{order.orderCustomer.firstName}} {{order.orderCustomer.lastName}},
 
-We received your payment and will now start processing the order.
+We hebben je bestelling ontvangen op {{ order.orderDateTime|date }}.
 
-Order number: {{ order.orderNumber }}
+Ordernummer: {{ order.orderNumber }}
 
+Informatie over je bestelling:
 
-Information on your order:
-
-Pos.   Prod. No.			Description			Quantities			Price			Total
+#   Art.			Beschrijving			Aantal			Prijs			Totaal
 {% for lineItem in order.lineItems %}
     {{ loop.index }}      {% if lineItem.payload.productNumber is defined %}{{ lineItem.payload.productNumber|u.wordwrap(80) }}{% endif %}				{{ lineItem.label|u.wordwrap(80) }}{% if lineItem.payload.options is defined and lineItem.payload.options|length >= 1 %}, {% for option in lineItem.payload.options %}{{ option.group }}: {{ option.option }}{% if lineItem.payload.options|last != option %}{{ " | " }}{% endif %}{% endfor %}{% endif %}				{{ lineItem.quantity }}			{{ lineItem.unitPrice|currency(currencyIsoCode) }}			{{ lineItem.totalPrice|currency(currencyIsoCode) }}
 {% endfor %}
 
 {% set delivery = order.deliveries.first %}
 
-Shipping costs: {{order.deliveries.first.shippingCosts.totalPrice|currency(currencyIsoCode) }}
-Net total: {{ order.amountNet|currency(currencyIsoCode) }}
+Verzendkosten: {{order.deliveries.first.shippingCosts.totalPrice|currency(currencyIsoCode) }}
+Subtotaal: {{ order.amountNet|currency(currencyIsoCode) }}
     {% for calculatedTax in order.price.calculatedTaxes %}
-        {% if order.taxStatus is same as('net') %}plus{% else %}including{% endif %} {{ calculatedTax.taxRate }}% VAT. {{ calculatedTax.tax|currency(currencyIsoCode) }}
+        {% if order.taxStatus is same as('net') %}plus{% else %}inclusief{% endif %} {{ calculatedTax.taxRate }}% BTW. {{ calculatedTax.tax|currency(currencyIsoCode) }}
     {% endfor %}
-Total gross: {{ order.amountTotal|currency(currencyIsoCode) }}
+Totaal: {{ order.amountTotal|currency(currencyIsoCode) }}
 
-
-Selected payment type: {{ order.transactions.first.paymentMethod.name }}
-{{ order.transactions.first.paymentMethod.description }}
-
-Selected shipping type: {{ delivery.shippingMethod.name }}
+Gekozen verzendmethode: {{ delivery.shippingMethod.name }}
 {{ delivery.shippingMethod.description }}
 
 {% set billingAddress = order.addresses.get(order.billingAddressId) %}
-Billing address:
+Factuuradres:
 {{ billingAddress.company }}
 {{ billingAddress.firstName }} {{ billingAddress.lastName }}
 {{ billingAddress.street }}
 {{ billingAddress.zipcode }} {{ billingAddress.city }}
 {{ billingAddress.country.name }}
 
-Shipping address:
+Verzendadres:
 {{ delivery.shippingOrderAddress.company }}
 {{ delivery.shippingOrderAddress.firstName }} {{ delivery.shippingOrderAddress.lastName }}
 {{ delivery.shippingOrderAddress.street }}
@@ -45,11 +40,9 @@ Shipping address:
 {{ delivery.shippingOrderAddress.country.name }}
 
 {% if billingAddress.vatId %}
-    Your VAT-ID: {{ billingAddress.vatId }}
-    In case of a successful order and if you are based in one of the EU countries, you will receive your goods exempt from turnover tax.
+    Je BTW-nummer: {{ billingAddress.vatId }}
+    In het geval van een succesvolle bestelling en als je gevestigd bent in een van de EU-landen (uitgezonderd Nederland), ontvangt je je goederen vrijgesteld van omzetbelasting.
 {% endif %}
 
-You can check the current status of your order on our website under "My account" - "My orders" anytime: {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
-If you have any questions, do not hesitate to contact us.
-
-However, in case you have purchased without a registration or a customer account, you do not have this option.
+Je kunt op elk moment de huidige status van je bestelling bekijken op onze website onder "Mijn account" - "Mijn bestellingen": {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
+Mocht u nog vragen hebben, neem dan gerust contact met ons op.
