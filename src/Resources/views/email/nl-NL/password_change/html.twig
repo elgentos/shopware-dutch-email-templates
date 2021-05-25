@@ -1,13 +1,13 @@
 <div style="font-family:arial; font-size:12px;">
-    <br/>
     <p>
-        Hallo {{order.orderCustomer.salutation.letterName }} {{order.orderCustomer.firstName}} {{order.orderCustomer.lastName}},<br/>
+        {{ customer.salutation.translated.letterName }} {{ customer.firstName }} {{ customer.lastName }},<br/>
         <br/>
-        De status van je bestelling bij {{salesChannel.name }} (Nummer: {{order.orderNumber}}) op {{order.orderDatum|date }} is veranderd.<br/>
-        <strong>De nieuwe status is als volgt: {{order.transactions.first.stateMachineState.name}}.</strong><br/>
+        Er is een verzoek geweest om je wachtwoord bij {{ salesChannel.translated.name }} te resetten.
+        Gelieve onderstaande link te bevestigen om een nieuw wachtwoord op te geven.<br/>
         <br/>
-        Je kunt de actuele status van je bestelling op elk moment bekijken op onze website onder "Mijn account" - "Mijn bestellingen": {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
-        </br>
-        Als je echter gekocht hebt zonder registratie of een klantenaccount, heb je deze optie niet.
+        <a href="{{ urlResetPassword }}">Reset wachtwoord</a><br/>
+        <br/>
+        Deze link is geldig voor de komende 2 uur. Daarna moet je een nieuwe bevestigingslink aanvragen.<br/>
+        Als je je wachtwoord niet opnieuw wilt instellen, kan je deze e-mail negeren. Er zullen geen wijzigingen worden aangebracht.
     </p>
 </div>
