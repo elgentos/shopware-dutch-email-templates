@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="ElgentosDutchEmailTemplates\Command\TemplateImport" autowire="true">
+            <tag name="console.command" command="elgentos-dutch-email-templates:import" />
+            <argument type="service" id="Psr\Container\ContainerInterface" />
+            <argument type="service" id="language.repository"/>
+            <argument type="service" id="mail_template.repository" />
+            <argument type="service" id="mail_template_translation.repository" />
+            <argument type="service" id="mail_template_type.repository" />
+            <argument type="service" id="Shopware\Core\Content\MailTemplate\MailTemplateDefinition" />
+        </service>
+    </services>
+</container>
