@@ -8,7 +8,6 @@ use Shopware\Core\Content\MailTemplate\MailTemplateEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\Language\LanguageEntity;
@@ -59,18 +58,16 @@ class TemplateImport extends Command
 
     protected function configure(): void
     {
-        $this
-            ->addOption('languageName', 'l', InputOption::VALUE_OPTIONAL, 'Language name', 'Nederlands')
-            ->addOption('languageCode', 'c', InputOption::VALUE_OPTIONAL, 'Language code', 'nl-NL');
+        $this->addOption('languageName', 'l', InputOption::VALUE_OPTIONAL, 'Language name', 'Nederlands');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $languageName = $input->getOption('languageName');
-        $languageCode = $input->getOption('languageCode');
 
         // Find language based on language name
         $criteria = new Criteria();
+        $criteria->addAssociation('locale');
         $criteria->addFilter(new EqualsFilter('name', $languageName));
         $context = Context::createDefaultContext();
         /** @var LanguageEntity $language */
@@ -81,13 +78,19 @@ class TemplateImport extends Command
             return 1;
         }
 
+        $languageCode = $language->getLocale() ? $language->getLocale()->getCode() : null;
+        if (!$languageCode) {
+            $output->writeln(sprintf('<error>Could not find mail language locale with name %s</error>', $languageName));
+            return 1;
+        }
+
         // Filter out non-directories or relatives
         $this->basePath = __DIR__ . '/../Resources/views/email/' . $languageCode . '/';
         $mailTypes = array_filter(scandir($this->basePath), function ($input) {
             return strlen($input) > 2 && is_dir($this->basePath . $input);
         });
 
-        // Loop through  mailtypes to add the templates
+        // Loop through  mail types to add the templates
         foreach ($mailTypes as $mailTypeTechnicalName) {
             try {
                 $mailTemplateType = $this->getMailTemplateTypeByTechnicalName($mailTypeTechnicalName, $context);
@@ -98,8 +101,14 @@ class TemplateImport extends Command
                     continue;
                 }
                 try {
-                    $this->mailTemplateTranslationRepository->upsert([$mailTemplateContent], $context);
-                    $output->writeln(sprintf('<info>Succesfully upserted mail template for %s.</info>', $mailTypeTechnicalName));
+                    // If the 'id' field is set, create a new mail template. If the 'mailTemplateId' is set, create a new mail translation template
+                    if (isset($mailTemplateContent['id'])) {
+                        $this->mailTemplateRepository->upsert([$mailTemplateContent], $context);
+                        $output->writeln(sprintf('<info>Succesfully upserted mail template for %s.</info>', $mailTypeTechnicalName));
+                    } elseif (isset($mailTemplateContent['mailTemplateId'])) {
+                        $this->mailTemplateTranslationRepository->upsert([$mailTemplateContent], $context);
+                        $output->writeln(sprintf('<info>Succesfully upserted mail template translation for %s.</info>', $mailTypeTechnicalName));
+                    }
                 } catch (\Exception $e) {
                     $output->writeln(sprintf('<error>Could not upsert mail template for %s; %s.</error>', $mailTypeTechnicalName, $e->getMessage()));
                 }
@@ -131,7 +140,7 @@ class TemplateImport extends Command
             'mailTemplateTypeId' => $mailTypeId,
         ];
 
-        // If the mail template already exists, pass along the mail template ID, otherwise create a new one
+        // If the mail template already exists, pass along the mail template ID, otherwise create a new UUID
         if ($mailTemplate) {
             $data['mailTemplateId'] = $mailTemplate->getId();
         } else {
