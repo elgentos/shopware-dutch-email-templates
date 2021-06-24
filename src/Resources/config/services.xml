@@ -7,12 +7,10 @@
     <services>
         <service id="ElgentosDutchEmailTemplates\Command\TemplateImport" autowire="true">
             <tag name="console.command" command="elgentos-dutch-email-templates:import" />
-            <argument type="service" id="Psr\Container\ContainerInterface" />
             <argument type="service" id="language.repository"/>
             <argument type="service" id="mail_template.repository" />
             <argument type="service" id="mail_template_translation.repository" />
             <argument type="service" id="mail_template_type.repository" />
-            <argument type="service" id="Shopware\Core\Content\MailTemplate\MailTemplateDefinition" />
         </service>
     </services>
 </container>

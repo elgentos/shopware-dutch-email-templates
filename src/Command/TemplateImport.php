@@ -3,7 +3,6 @@
 namespace ElgentosDutchEmailTemplates\Command;
 
 use Shopware\Core\Content\MailTemplate\Aggregate\MailTemplateType\MailTemplateTypeEntity;
-use Shopware\Core\Content\MailTemplate\MailTemplateDefinition;
 use Shopware\Core\Content\MailTemplate\MailTemplateEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -15,7 +14,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class ImageImport
@@ -23,8 +21,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class TemplateImport extends Command
 {
-    public ContainerInterface $container;
-
     public EntityRepositoryInterface $languageRepository;
 
     public EntityRepositoryInterface $mailTemplateRepository;
@@ -33,27 +29,21 @@ class TemplateImport extends Command
 
     public EntityRepositoryInterface $mailTemplateTypeRepository;
 
-    public MailTemplateDefinition $mailTemplateDefinition;
-
     public string $basePath = '';
 
     public function __construct(
-        ContainerInterface $container,
         EntityRepositoryInterface $languageRepository,
         EntityRepositoryInterface $mailTemplateRepository,
         EntityRepositoryInterface $mailTemplateTranslationRepository,
         EntityRepositoryInterface $mailTemplateTypeRepository,
-        MailTemplateDefinition $mailTemplateDefinition,
         string $name = null
     )
     {
         parent::__construct($name);
-        $this->container = $container;
         $this->languageRepository = $languageRepository;
         $this->mailTemplateRepository = $mailTemplateRepository;
         $this->mailTemplateTranslationRepository = $mailTemplateTranslationRepository;
         $this->mailTemplateTypeRepository = $mailTemplateTypeRepository;
-        $this->mailTemplateDefinition = $mailTemplateDefinition;
     }
 
     protected function configure(): void
