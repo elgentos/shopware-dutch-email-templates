@@ -95,7 +95,7 @@ class TemplateImport extends Command
             try {
                 $mailTemplateType = $this->getMailTemplateTypeByTechnicalName($mailTypeTechnicalName, $context);
                 $mailTemplate = $mailTemplateType ? $this->getMailTemplateByMailTemplateTypeId($mailTemplateType, $context) : null;
-                $mailTemplateContent = $this->getMailTemplateContent($mailTemplate, $mailTypeTechnicalName, $mailTemplateType->getId(), $languageName);
+                $mailTemplateContent = $this->getMailTemplateContent($mailTemplate, $mailTypeTechnicalName, $mailTemplateType->getId(), $language);
                 if (empty($mailTemplateContent)) {
                     $output->writeln(sprintf('<comment>No HTML and/or text content for %s (%s) found. Skipping.</comment>', $mailTypeTechnicalName, $languageName));
                     continue;
@@ -106,6 +106,7 @@ class TemplateImport extends Command
                         $this->mailTemplateRepository->upsert([$mailTemplateContent], $context);
                         $output->writeln(sprintf('<info>Succesfully upserted mail template for %s.</info>', $mailTypeTechnicalName));
                     } elseif (isset($mailTemplateContent['mailTemplateId'])) {
+                        $mailTemplateContent['languageId'] = $language->getId();
                         $this->mailTemplateTranslationRepository->upsert([$mailTemplateContent], $context);
                         $output->writeln(sprintf('<info>Succesfully upserted mail template translation for %s.</info>', $mailTypeTechnicalName));
                     }
@@ -120,7 +121,7 @@ class TemplateImport extends Command
         return 0;
     }
 
-    private function getMailTemplateContent(?MailTemplateEntity $mailTemplate, string $mailTypeTechnicalName, string $mailTypeId, string $languageName): array
+    private function getMailTemplateContent(?MailTemplateEntity $mailTemplate, string $mailTypeTechnicalName, string $mailTypeId, LanguageEntity $language): array
     {
         $contentHtml = @file_get_contents($this->basePath . $mailTypeTechnicalName . '/html.twig');
         $contentText = @file_get_contents($this->basePath . $mailTypeTechnicalName . '/plain.twig');
@@ -131,7 +132,7 @@ class TemplateImport extends Command
         }
 
         $data = [
-            'description' => $mailTypeTechnicalName . ' (' . $languageName . ')',
+            'description' => $mailTypeTechnicalName . ' (' . $language->getName() . ')',
             'systemDefault' => true,
             'senderName' => '{{ salesChannel.name }}',
             'subject' => $subject ? trim($subject) : $mailTypeTechnicalName,
