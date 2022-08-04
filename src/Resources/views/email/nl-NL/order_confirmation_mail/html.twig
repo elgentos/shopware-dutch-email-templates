@@ -84,7 +84,7 @@
         <br>
         {% if billingAddress.vatId %}
             Je BTW-nummer: {{ billingAddress.vatId }}
-            In het geval van een succesvolle bestelling en als je gevestigd bent in een van de EU-landen (uitgezonderd Nederland), ontvangt je je goederen vrijgesteld van omzetbelasting.<br>
+            In het geval van een succesvolle bestelling en als je gevestigd bent in een van de EU-landen (uitgezonderd Nederland), ontvang je je goederen vrijgesteld van omzetbelasting.<br>
         {% endif %}
         <br/>
         Je kunt op elk moment de huidige status van je bestelling bekijken op onze website onder "Mijn account" - "Mijn bestellingen": {{ rawUrl('frontend.account.order.single.page', { 'deepLinkCode': order.deepLinkCode}, salesChannel.domains|first.url) }}
