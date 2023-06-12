@@ -5,7 +5,7 @@ namespace ElgentosDutchEmailTemplates\Command;
 use Shopware\Core\Content\MailTemplate\Aggregate\MailTemplateType\MailTemplateTypeEntity;
 use Shopware\Core\Content\MailTemplate\MailTemplateEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Uuid\Uuid;
@@ -21,21 +21,21 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TemplateImport extends Command
 {
-    public EntityRepositoryInterface $languageRepository;
+    public EntityRepository $languageRepository;
 
-    public EntityRepositoryInterface $mailTemplateRepository;
+    public EntityRepository $mailTemplateRepository;
 
-    public EntityRepositoryInterface $mailTemplateTranslationRepository;
+    public EntityRepository $mailTemplateTranslationRepository;
 
-    public EntityRepositoryInterface $mailTemplateTypeRepository;
+    public EntityRepository $mailTemplateTypeRepository;
 
     public string $basePath = '';
 
     public function __construct(
-        EntityRepositoryInterface $languageRepository,
-        EntityRepositoryInterface $mailTemplateRepository,
-        EntityRepositoryInterface $mailTemplateTranslationRepository,
-        EntityRepositoryInterface $mailTemplateTypeRepository,
+        EntityRepository $languageRepository,
+        EntityRepository $mailTemplateRepository,
+        EntityRepository $mailTemplateTranslationRepository,
+        EntityRepository $mailTemplateTypeRepository,
         string $name = null
     )
     {
